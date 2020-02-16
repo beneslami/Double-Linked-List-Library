@@ -26,7 +26,8 @@ PIC -> position independent code
 As a developer, I provide dll.h and libdll.a/libdll.so for a chicken leg developer. The chicken leg developer does not access to the implementation of dll functions but only the signature/declaration of them. They can just put their code (Let's say application.c) and libdll.a/libdll.so to the compiler to get their expected output.
 
 1.gcc -c application.c -o application.o
-2.gcc application.o -o exe -L . -ldll   (P.S.1: switch L indicates the path of the library which is current folder in this command)(P.S.2: ldll is the convention name l<nameOfTheLibrary>.a instead of lib<nameOfTheLibrary>.a)
+
+2.gcc application.o -o exe -L . -ldll   (P.S.1: switch L indicates the path of the library which is current folder in this command)(P.S.2: ldll is the convention name l[nameOfTheLibrary].a instead of lib[nameOfTheLibrary].a)
 
 The approach is the same for dynamic libraries with one step difference
 
