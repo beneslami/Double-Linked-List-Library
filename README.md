@@ -38,4 +38,4 @@ The approach is the same for dynamic libraries with one step difference
 3.gcc application.o -o exec -ldll
 
 ----------------
-The most important feature of libraries is that they should be application agnostic, which means they should be implemented in a way that different applications with various data can use the library.
+The most important feature of libraries is that they should be application agnostic, which means they should be implemented in a way that different applications with various data can use the library. This is called Delegation of Application Responsibility to Library. And this is the responsibility of the application to teach the library "how to match the application record" in a data structure which is defined in the library. In other word, the application should teach the library how to manipulate its data. In this piece of code, "search_employee_db_by_key" and "search_student_db_by_key" are the two functions which is responsible for teaching the library how to manipulate their data for employee_t and student_t data structures respectively. 

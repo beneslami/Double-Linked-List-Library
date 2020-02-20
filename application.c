@@ -31,24 +31,23 @@ static void print_student_db(dll_t *student_db) {
         printf("Age = %d\n",    data->age);
         printf("weight = %d\n", data->weight);
         printf("rollno = %u\n", data->rollno);
-        head = head->right;    
+        head = head->right;
     }
 }
 
-static void
-print_employee_db(dll_t *student_db) {
-    if(!student_db || !student_db->head) return;
+static void print_employee_db(dll_t *employee_db) {
+    if(!employee_db || !employee_db->head) return;
 
-    dll_node_t *head = student_db->head;
-    student_t *data = NULL;
+    dll_node_t *head = employee_db->head;
+    employee_t *data = NULL;
 
     while(head){
         data = head->data;
-        printf("Name = %s\n", data->dataname);
+        printf("Name = %s\n", data->name);
         printf("Designation = %s\n", data->designation);
         printf("salary = %u\n", data->salary);
         printf("emp_id = %u\n", data->emp_id);
-        head = head->right;    
+        head = head->right;
     }
 }
 
@@ -62,7 +61,7 @@ student_t *search_student_by_rollno(dll_t *student_db, unsigned int rollno/*sear
         data = head->data;
         if(data->rollno == rollno)
             return data;
-        head = head->right;    
+        head = head->right;
     }
 }
 
@@ -78,7 +77,7 @@ employee_t *search_employee_by_emp_id(dll_t *employee_db, unsigned int emp_id/*s
         data = head->data;
         if(data->emp_id == emp_id)
             return data;
-        head = head->right;    
+        head = head->right;
     }
 }
 
@@ -126,15 +125,13 @@ int main(int argc, char **argv){
     add_data_to_dll(student_db, student2);
     add_data_to_dll(student_db, student3);
 
-    //student_t *student = search_student_by_rollno(student_db, 810196101);
     student_t *student = dll_search_by_key(student_db, (void *)810196101);
     if(!student){
         printf("Student record not found\n");
     }
     else{
-        print_student_db(student);    
+        print_student_db(student);
     }
 
   return 0;
 }
-
