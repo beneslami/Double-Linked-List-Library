@@ -98,6 +98,31 @@ static int search_employee_db_by_key(void *data, void *key){ /*return 0 if match
         return 0;
     return -1;
 }
+
+/*Comparion Callback, Return 0 if equalx -1 if stud1 < stud2, 1 if stud1 > stud2*/
+static int student_comparison_fn(void *stud1, void *stud2){
+   student_t *student1 = (student_t *)stud1;
+   student_t *student2 = (student_t *)stud2;
+
+   if(strncmp(student1->name, student2->name, 32) < 0)
+       return -1;
+   else if(strncmp(student1->name, student2->name, 32) > 0)
+       return 1;
+   else if(student1->age < student2->age)
+       return -1;
+   else if(student1->age > student2->age)
+       return 1;
+   else if(student1->weight < student2->weight)
+       return -1;
+   else if(student1->weight > student2->weight)
+       return 1;
+   else if(student1->rollno < student2->rollno)
+       return -1;
+   else if(student1->rollno > student2->rollno)
+       return 1;
+   assert(0); /*intentionally Crash the program !!*/
+ }
+
 int main(int argc, char **argv){
     /*Student database*/
     student_t *student1 = calloc(1, sizeof(student_t));
@@ -121,6 +146,7 @@ int main(int argc, char **argv){
     /*Create a new Linked List*/
     dll_t *student_db = get_new_dll();
     register_key_match_callback(student_db, search_student_db_by_key);
+    register_comparison_callback(student_db, student_comparison_fn);
     add_data_to_dll(student_db, student1);
     add_data_to_dll(student_db, student2);
     add_data_to_dll(student_db, student3);
@@ -133,5 +159,37 @@ int main(int argc, char **argv){
         print_student_db(student);
     }
 
+    /*Employee database*/
+    employee_t *employee1 = calloc(1, sizeof(employee_t));
+    strncpy(employee1->name, "Benyamin", strlen("Benyamin"));
+    strncpy(employee1->designation, "Student", strlen("Student"));
+    employee1->salary = 11131;
+    employee1->emp_id = 10000;
+
+    employee_t *employee2 = calloc(1, sizeof(employee_t));
+    strncpy(employee2->name, "KungSoon", strlen("KungSoon"));
+    strncpy(employee2->designation, "Intern", strlen("Intern"));
+    employee1->salary = 127000;
+    employee1->emp_id = 10001;
+
+    employee_t *employee3 = calloc(1, sizeof(employee_t));
+    strncpy(employee3->name, "Keon Jang", strlen("Keon Jang"));
+    strncpy(employee2->designation, "Tenure Track", strlen("Tenure Track"));
+    employee1->salary = 139000;
+    employee1->emp_id = 10002;
+
+    dll_t *employee_db = get_new_dll();
+    register_key_match_callback(employee_db, search_employee_db_by_key);
+    add_data_to_dll(employee_db, employee1);
+    add_data_to_dll(employee_db, employee2);
+    add_data_to_dll(employee_db, employee3);
+
+    employee_t *employee = dll_search_by_key(employee_db, (void*)10002);
+    if(!employee){
+      printf("employee record could not be found\n");
+    }
+    else{
+      print_employee_db(employee);
+    }
   return 0;
 }

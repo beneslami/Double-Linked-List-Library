@@ -11,9 +11,11 @@ typedef struct dll_node_{
 typedef struct dll_{
   dll_node_t *head;
   int (*key_match)(*void, *void); //Function pointer for searching the element
+  int (*comparison_fn)(*void, *void); //Function pointer for comparing the elements
 }dll_t;
 
 void register_key_match_callback(dll_t *dll, int (*key_match)(void*, void*));
+void register_comparison_callback(dll_t *dll, int (*comparison_fn)(void*, void*));
 void *dll_search_by_key(dll_t *dll, void *key); //generic search function
 
 /*Public function decleration to create and return a new empty dll*/
@@ -22,5 +24,6 @@ dll_t *get_new_dll();
 /*Public function decleration to add the application data to the dll*/
 int add_data_to_dll(dll_t *dll, void *app_data);
 
-
+/*0 on success, -1 on failure*/
+int dll_priority_insert_data(dll_t *dll, void *data);
 #endif __DLLH__
