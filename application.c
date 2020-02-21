@@ -20,6 +20,7 @@ typedef struct employee_{
 } employee_t;
 
 static void print_student_db(dll_t *student_db) {
+
     if(!student_db || !student_db->head) return;
 
     dll_node_t *head = student_db->head;
@@ -33,6 +34,15 @@ static void print_student_db(dll_t *student_db) {
         printf("rollno = %u\n", data->rollno);
         head = head->right;
     }
+  /*Iterate over DLL using Iterative Macro*/
+#if 0
+  dll_node_t *node_ptr = NULL;
+  student_t *data = NULL;
+  ITERATE_LIST_BEGIN(student_db, node_ptr){
+      data = node_ptr->data;
+      print_student_details(data);
+  } ITERATE_LIST_END;
+#endif
 }
 
 static void print_employee_db(dll_t *employee_db) {
@@ -120,7 +130,7 @@ static int student_comparison_fn(void *stud1, void *stud2){
        return -1;
    else if(student1->rollno > student2->rollno)
        return 1;
-   assert(0); /*intentionally Crash the program !!*/
+   //assert(0); /*intentionally Crash the program !!*/
  }
 
 int main(int argc, char **argv){

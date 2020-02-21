@@ -41,7 +41,7 @@ int add_data_to_dll(dll_t *dll, void *app_data){
   dll_new_node->data = app_data;
 
   /*add the data to the end of dll*/
-  if(!dll_head){
+  if(!dll->head){
     dll->head = dll_new_node;
     return 0;
   }
@@ -49,7 +49,7 @@ int add_data_to_dll(dll_t *dll, void *app_data){
   dll_node_t *first_node = dll->head;
   dll_new_node->right = first_node;
   first_node->left = dll_new_node;
-  dll_head = dll_new_node;
+  dll->head = dll_new_node;
   return 0;
 }
 
@@ -89,7 +89,7 @@ int dll_priority_insert_data(dll_t *dll, void *data){
         return 0;
     }
 
-    dll_node_t *prev = NULL, *curr = NULL;
+    dll_node_t *prev = NULL, *current = NULL;
     current = dll->head;
 
     while(current){
