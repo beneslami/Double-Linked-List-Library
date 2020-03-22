@@ -1,6 +1,6 @@
 /*header file for double linked list */
-#ifndef __DLLH__
-#define __DLLH__
+#ifndef DLL_H
+#define DLL_H
 
 typedef struct dll_node_{
   void *data;
@@ -10,7 +10,7 @@ typedef struct dll_node_{
 
 typedef struct dll_{
   dll_node_t *head;
-  int (*key_match)(void*, void*); //Function pointer for searching the element
+  int (*key_match)(void*, void*);     //Function pointer for searching the element
   int (*comparison_fn)(void*, void*); //Function pointer for comparing the elements
 }dll_t;
 
@@ -37,4 +37,4 @@ int dll_priority_insert_data(dll_t *dll, void *data);
         _node_ptr = node_ptr->right;
 #define ITERATE_LIST_END  }}
 
-#endif __DLLH__
+#endif

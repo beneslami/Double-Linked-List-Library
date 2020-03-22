@@ -73,6 +73,7 @@ student_t *search_student_by_rollno(dll_t *student_db, unsigned int rollno/*sear
             return data;
         head = head->right;
     }
+    return NULL;
 }
 
 /*Search function*/
@@ -89,6 +90,7 @@ employee_t *search_employee_by_emp_id(dll_t *employee_db, unsigned int emp_id/*s
             return data;
         head = head->right;
     }
+    return NULL;
 }
 
 /*Search callbacks*/
@@ -130,25 +132,25 @@ static int student_comparison_fn(void *stud1, void *stud2){
        return -1;
    else if(student1->rollno > student2->rollno)
        return 1;
-   //assert(0); /*intentionally Crash the program !!*/
+   return -1;
  }
 
 int main(int argc, char **argv){
     /*Student database*/
     student_t *student1 = calloc(1, sizeof(student_t));
-    strncpy(student1->name, "Ben", strlen("Eslami"));
+    strncpy(student1->name, "Ben", strlen("Ben"));
     student1->age = 26;
     student1->weight = 75;
     student1->rollno = 810196101;
 
     student_t *student2 = calloc(1, sizeof(student_t));
-    strncpy(student2->name, "Mehrnaz", strlen("Niazi"));
+    strncpy(student2->name, "Mehrnaz", strlen("Mehrnaz"));
     student2->age = 26;
     student2->weight = 55;
     student2->rollno = 810196102;
 
     student_t *student3 = calloc(1, sizeof(student_t));
-    strncpy(student3->name, "Fatemeh", strlen("Eslami"));
+    strncpy(student3->name, "Fatemeh", strlen("Fatemeh"));
     student3->age = 16;
     student3->weight = 40;
     student3->rollno = 12345678;
@@ -160,15 +162,15 @@ int main(int argc, char **argv){
     add_data_to_dll(student_db, student1);
     add_data_to_dll(student_db, student2);
     add_data_to_dll(student_db, student3);
-
+    //print_student_db(student_db); --> uncomment it if you want to see the result
     student_t *student = dll_search_by_key(student_db, (void *)810196101);
     if(!student){
         printf("Student record not found\n");
     }
     else{
-        print_student_db(student);
+        printf("Name = %s\nAge = %d\nWeight = %d\nroll No. = %d\n", student->name, student->age, student->weight, student->rollno);
     }
-
+    printf("---------------------------------\n");
     /*Employee database*/
     employee_t *employee1 = calloc(1, sizeof(employee_t));
     strncpy(employee1->name, "Benyamin", strlen("Benyamin"));
@@ -179,27 +181,27 @@ int main(int argc, char **argv){
     employee_t *employee2 = calloc(1, sizeof(employee_t));
     strncpy(employee2->name, "KungSoon", strlen("KungSoon"));
     strncpy(employee2->designation, "Intern", strlen("Intern"));
-    employee1->salary = 127000;
-    employee1->emp_id = 10001;
+    employee2->salary = 127000;
+    employee2->emp_id = 10001;
 
     employee_t *employee3 = calloc(1, sizeof(employee_t));
     strncpy(employee3->name, "Keon Jang", strlen("Keon Jang"));
-    strncpy(employee2->designation, "Tenure Track", strlen("Tenure Track"));
-    employee1->salary = 139000;
-    employee1->emp_id = 10002;
+    strncpy(employee3->designation, "Tenure Track", strlen("Tenure Track"));
+    employee3->salary = 139000;
+    employee3->emp_id = 10002;
 
     dll_t *employee_db = get_new_dll();
     register_key_match_callback(employee_db, search_employee_db_by_key);
     add_data_to_dll(employee_db, employee1);
     add_data_to_dll(employee_db, employee2);
     add_data_to_dll(employee_db, employee3);
-
+    //print_employee_db(employee_db);   --> uncomment it if you want to see the result
     employee_t *employee = dll_search_by_key(employee_db, (void*)10002);
     if(!employee){
       printf("employee record could not be found\n");
     }
     else{
-      print_employee_db(employee);
+        printf("Name = %s\nDesignation = %s\nSalary = %d\nEmp_ID = %d\n", employee->name, employee->designation, employee->salary, employee->emp_id); 
     }
   return 0;
 }
